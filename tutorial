@@ -1,0 +1,267 @@
+____   ____.__          ___________      __               .__       .__ ._.
+\   \ /   /|__| _____   \__    ___/_ ___/  |_  ___________|__|____  |  || |
+ \   Y   / |  |/     \    |    | |  |  \   __\/  _ \_  __ \  \__  \ |  || |
+  \     /  |  |  Y Y  \   |    | |  |  /|  | (  <_> )  | \/  |/ __ \|  |_\|
+   \___/   |__|__|_|  /   |____| |____/ |__|  \____/|__|  |__(____  /____/_
+                    \/                                            \/     \/
+###########################################################################
+
+
+1.- Help, get me out of this place!
+
+If at any time you feel scared or uncomfortable, just type `:q` and press
+enter. You will be right back at your terminal. Try to think of this as 'quit'.
+
+Remember, this will only work if you did not modify anything in the current buffer.
+If you did, you will see an angry message at the bottom of your screen saying something
+like:
+
+        E37: No write since last change
+        E162: No write since last change for buffer "tutorial"
+
+If this happens, just type `:q!` instead. This will force-quit the file, and discard
+any unsaved changes.
+
+There are many other actions like this. For example:
+
+        :e : edit file
+        :w : write your changes to the current file
+        :q : quit the current file (actually it is close the current window, but we'll get to that)
+        :q! : quit the current file without saving your changes
+        :wq : write your changes and then quit the file
+
+2.- Tutorial configuration
+
+Vim can be a little restrictive when you are just starting, and your vimrc is empty.
+Therefore, we're going to use a sample vimrc with some basic instructions in order
+to make our lives easier.
+
+Just exit vim, and then launch it again in the following fashion:
+
+        vim -u samplerc tutorial
+
+You can use the -u flag to specify the vim configuration you want to use. If you did
+that correctly, you should be able to press <Leader>ev, and a window should open on the
+left side of the screen. I have this mapping myself, and I use it to modify my vim
+configuration on the fly. I also have another mapping to source the vim configuration again.
+That way I can see the changes I just made right away. Oh, the <Leader> key is `\` by default.
+
+So:
+        <Leader>ev: Edit vimrc
+        <Leader>sv: Source vimrc
+
+That's not hard actually hard, is it?
+
+3.- Modal editing, or how to "speak" vim
+
+        How Vim user grows
+
+        Lv0. who doesn't know about Vim
+        Lv1. who knows basic usage of Vim
+        Lv2. who knows Visual mode
+        Lv3. who knows various motions
+        Lv4. who doesn't use Visual mode
+
+              - Kana the Wizard (http://whileimautomaton.net/2008/11/vimm3/operator)
+
+So, Vim as a language. Let us start with an example. If you want to copy this paragraph and the next one,
+ and then put them at the end of this file, you would have to type `2yapGp`. Go ahead, try it, you will see
+that it actually works.  This might sound like something really really hard to remember. Who would, anyways? Who
+wants to remember `2yapGp` as a shortcut to do only ONE thing? Turns out, it actually way more simple than that.
+You just have to _think_ in Vim.
+
+How do you do that? Well, verbs, modifiers and nouns. Verbs are actions that can be performed on
+nouns. Modifiers are used between verbs and nouns in order to describe the way in which you're
+going to do something. And nouns are objects. In our case, they are text objects.
+
+This might be a little hard to understand at the beginning, but bear with me, it's going
+to be worth it.
+
+Verbs:
+
+        d: delete
+        c: change/create
+        y: yank (or copy)
+        v: visually select (or V if you're feeling wild. It does lines instead of characters)
+        u: undo last action
+
+Modifiers:
+
+        i: inside
+        a: around
+        NUMBER: number
+        t: searches for something and stops before it
+        f: searches for something and stops on top of it
+        /: finds a string
+
+Nouns:
+
+        w: word
+        s: sentence
+        ): sentence (movement-related)
+        p: paragraph
+        }: paragraph (movement-related)
+        t: tag (HTML/XML)
+
+You can also use nouns as motions. This means that you can move using words, sentences, and
+paragraphs, using them as the size of your jump. More on this later.
+
+So, now that you have all the elements, how do you actually speak Vim? Well, you just combine verbs,
+modifiers and nouns, like when speaking.
+
+For example, "delete two words" becomes `d2w`.
+
+        d => delete
+        2 => two
+        w => words
+
+See the mappings above. And this works! Try it here:
+
+Two words
+
+Let's get more ambitious now. Let's replace a whole sentence. How would we do that? You change/create
+inside of a sentence. "Change inside sentence" becomes `cis`. You can even try it with this sentence
+if you want. The best part is that you do needn't be at the beginning of a sentence for it to work.
+These phrases work on text objects, and Vim is capable of detecting them on the go.
+
+Now, let's compare that to what you would usually do without modal editing. You would either
+highlight the whole sentence with your cursor, and then press the backspace key. So you would have to
+take your hands off the keyboard, grab your mouse/trackpad, click at the end of the phrase, drag your
+mouse to the beginning of the phrase, and then type backspace. Some people can live with that. You could
+also put your cursos at the end of the phrase and press the backspace key a lot of times. For the target
+phrase bellow, that's 59 times. Efficient, right?
+
+You can do that with 3 keystrokes, using modal editing.
+
+Delete this sentence in the most efficient fashion, please.
+
+You can combine the verb-modifiers-nouns above for amazing results. Try it yourself!
+
+What if you wanted to delete everything in this line up until a tag? </AwesomeTag>
+
+<AwesomeTag>What if you wanted to replace everything between the Awesome tags?</AwesomeTag>
+
+The more you use this form of editing, the more you'll get used to it. Personally, I can barely edit
+text any other way now.
+
+
+YOU: THIS IS AWESOME! WHAT ELSE CAN I DO?
+
+
+Well, you can start moving around text using text objects or shortcuts:
+
+        0: move to the beginning of the line
+        $: move to the end of the line
+        ^: move to the first non-blank character in the line
+        t": move to right before the quotes
+        f": jump and land on the quotes
+
+        w: move forward one word
+        W: move forward one big word (space delimited)
+        b: move back one word
+        B: move back one big word (space delimited)
+
+        ): move forward one sentence
+        (: move back one sentence
+        }: move forward one paragraph
+        {: move back  one paragraph
+        H: move to the top of the screen
+        M: move to the middle of the screen
+        L: move to the bottom of the screen
+        gg: go to the top of the file
+        G: go to the bottom of the file
+        <Ctrl-u>: move up half a screen
+        <Ctrl-d>: move down half a screen
+        <Ctrl-b>: move up a whole screen
+        <Ctrl-f>: move down a whole screen
+
+You can also use all of these movements with the verb + modifier + noun combination. Can you
+guess what `ggdG` does then?
+
+4.- Modes, transitions, and other cool stuff
+
+Why is this called modal editing? Well, because of modes.
+
+You start vim in Normal Mode. It is also called Command Mode. You can enter commands here,
+like movements, deletions, or commands that do certain thing then enter Insert Mode. It's
+what we've being doing so far, basically.
+
+There's also Insert Mode. The simplest way to enter Insert Mode is to press `i`, but there
+are many others. Insert Mode allows you to modify text the way you would with any other
+text editor.
+
+Visual Mode allows you to select text. It gets highlighted and you move over it in order
+to select it. You can do it character-wise (v), line-wise (V) or block-wise (<C-v>).
+
+There are some other modes that go beyond of the scope of this lesson.
+
+So, basically you have:
+
+              i               <Esc>
+            <====             <====
+ Insert Mode      Normal Mode      Visual Mode
+            ====>             ====>
+            <Esc>            v,V,<C-v>
+
+
+Let's go back to the verbs. We only saw (d)elete, (c)hange, (y)ank and (v)isually select, but there
+are many others too:
+
+        i: insert before the cursor
+        a: append after the cursor
+        I: insert at the beginning of the line
+        A: append at the end of the line
+        o: open a new line below the current one
+        O: open a new line above the current one
+        r: replace the character under your cursor
+        R: replace the character under your cursor, and then keep typing
+        cm: change whatever you define as m: a movement, a word, a sentence, a paragraph...
+        C: Change the current line from your current position
+        ct?: Change the current line up until the question mark
+
+All of these verbs (with the exception of (r)eplace) enter Insert Mode at the end. So there are
+plenty of ways to enter Insert Mode in the end, not just pressing `i`.
+
+You can also go mad with deletions:
+
+        x: delete the character under the cursor
+        X: delete the character before the cursor
+        dm: delete whatever you define as m: a movement, a word, a sentence, a paragraph...
+        dd: delete current line
+        dt.: delete until the dot
+        D: delete from the current position until the end of the line
+        J: join current line with the next one
+
+What if you delete all the file by accident? Well, you can just type `u`, for undo, in
+order to undo your last action. You can also re-do it with <C-r>, which stands for redo.
+
+        u: undo last action
+        <C-r>: redo last action
+
+Another interesting thing when working in normal mode is that you can use the `.` (dot) key
+to repeat the last action you made. For  example, if you deleted a whole paragraph, you can type
+`.` to do it again. You can even do `2.` if you want to delete 2 paragraphs. You get the idea.
+
+Try deleting a word. Then try deleting 5 of them. I won't tell you how to do it.
+
+5.- Advanced copy/pasting and registers
+TODO
+6.- Advanced text object edition
+TODO
+7.- Visual mode
+TODO
+8.- Macros
+TODO
+9.- Buffers, Windows and Tabs
+TODO
+10.- Plugins and useful tricks
+TODO
+
+n.- Acknowledgements
+
+* Steve Losh
+* Tim Pope
+* Drew Neil
+* Daniel Miessler
+
+You guys are all pretty rad.

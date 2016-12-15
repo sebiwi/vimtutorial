@@ -1,0 +1,59 @@
+"                                       ,---.
+" ,--.   ,--.,------.  ,---.  ,--.  ,--.|   |
+"  \  `.'  / |  .---' /  O  \ |  '--'  ||  .'
+"   '.    /  |  `--, |  .-.  ||  .--.  ||  |
+"     |  |   |  `---.|  | |  ||  |  |  |`--'
+"     `--'   `------'`--' `--'`--'  `--'.--.
+"                                       '--'
+
+" You did it!
+" This is a sample vimrc. You can use it as a starting point when writing
+" your own. As a general recommendation, do not copy someone else's vimrc
+" without understanding how it works. Just progressively add stuff you think
+" you are going to use, test it for a week, and *then* start thing about
+" something else you can use.
+
+" You're now at the left window, so you're not able to edit the text on the righ
+" window anymore. In order to do so, type <C-w>l, or <C-w>Right. This will change
+" focus over *that* window.
+
+" Let's talk a little bit about notations while we're at it.
+" <C-w> means "Press w while holding Ctrl", and <C-w>h means
+" "Press w while holding Ctrl, and then press h". I'll let you figure out
+" what <C>Left means. I try to think of this as "Control window / action"
+" so it is easy to remember, but it is still a little cumbersome. We will see
+" later on how we can actually map long actions into short ones.
+
+" You can see a detailed guide on notaion by typing `:help notation`.
+
+" Usually, a vimrc is located at ~/.vimrc, and it is loaded automatically
+" by vim. You can put this one there righ now if you're feeling sassy
+" and you want to skip the `vim -u samplerc ...` part each time you open
+" a file. You can remove these annoying comments too. If you feel like it.
+
+" You can keep this window open and go back to the tutorial using the
+" aforementioned technique, or you can close it and keep only the right window.
+" You can do this by typing `:q` as it was expalined in section 1. So this command
+" actually works for every kind of window in vim. Try it!
+
+
+"""""""""""""""""""""""""""""""""""""""""
+"        Actually useful stuff
+"""""""""""""""""""""""""""""""""""""""""
+
+" This is used in order to disable vi backwards compatibility
+set nocompatible
+
+" This makes backspace behave like a normal backspace
+set backspace=indent,eol,start
+
+" Open vim configuration in a vsplit: Leader + ev (edit vim) [Use the second version if you use this as your default vimrc]
+nnoremap <leader>ev :vsplit samplerc<cr>
+" nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" Source vim configuration inmediatly: Leader + sv (source vim) [Use the second version if you use this as your default vimrc]
+nnoremap <leader>sv :source samplerc<cr>
+" nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Enable line numbers
+set number
